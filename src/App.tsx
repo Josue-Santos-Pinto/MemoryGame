@@ -6,6 +6,8 @@ import { Button } from "./components/Button";
 import { InfoItem } from "./components/InfoItem";
 import { GridType } from "./types/GridItemType";
 import { items } from "./data/items";
+import { GridItem } from "./components/GridItem";
+import { formatTimeElapse } from "./helpers/formatTimeElapse";
 
 export function App() {
   const [playing, setPlaying] = useState<boolean>(false);
@@ -51,9 +53,21 @@ export function App() {
 
     setPlaying(true);
   };
+
+  const handleItemClick = (index: number) => {};
+
   useEffect(() => {
     resetAndCreateGrid();
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (playing) {
+        setTimeElapsed(timeElapsed + 1);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [playing, timeElapsed]);
 
   return (
     <C.Container>
@@ -63,7 +77,7 @@ export function App() {
         </C.LogoLink>
 
         <C.InfoArea>
-          <InfoItem label="Tempo" value="00:00" />
+          <InfoItem label="Tempo" value={formatTimeElapse(timeElapsed)} />
           <InfoItem label="Movimentos" value="0" />
         </C.InfoArea>
         <Button
@@ -73,7 +87,15 @@ export function App() {
         />
       </C.Info>
       <C.GridArea>
-        <C.Grid>..</C.Grid>
+        <C.Grid>
+          {gridItems.map((item, index) => (
+            <GridItem
+              key={index}
+              item={item}
+              onClick={() => handleItemClick(index)}
+            />
+          ))}
+        </C.Grid>
       </C.GridArea>
     </C.Container>
   );
