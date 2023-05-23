@@ -16,6 +16,8 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  min-width: 90px;
+  min-height: 90px;
 `;
 
 export const Icon = styled.img<IconProps>`
