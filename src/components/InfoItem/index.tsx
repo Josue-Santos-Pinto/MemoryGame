@@ -3,13 +3,18 @@ import * as C from "./styles";
 type PropsType = {
   label: string;
   value: string;
+  isDark?: boolean;
 };
 
-export function InfoItem({ label, value }: PropsType) {
+export function InfoItem({ label, value, isDark }: PropsType) {
   return (
     <C.Container>
-      <C.Label>{label}</C.Label>
-      <C.Value>{value}</C.Value>
+      {isDark != null && (
+        <>
+          <C.Label isDark={isDark}>{label}</C.Label>
+          <C.Value isDark={isDark}>{value}</C.Value>
+        </>
+      )}
     </C.Container>
   );
 }

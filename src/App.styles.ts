@@ -1,6 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+type themeProp = {
+  isDark: boolean;
+};
+
+export const Container = styled.div<themeProp>`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${(props) => (props.isDark ? "#242526" : "#fff")};
+`;
+export const MainContent = styled.div`
   width: 100%;
   max-width: 750px;
   margin: auto;
@@ -9,6 +18,20 @@ export const Container = styled.div`
 
   @media (max-width: 750px) {
     flex-direction: column;
+  }
+`;
+export const SwitchArea = styled.div`
+  max-width: 150px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 60px;
+  top: 10px;
+
+  @media (max-width: 980px) {
+    right: 10px;
   }
 `;
 export const Info = styled.div`

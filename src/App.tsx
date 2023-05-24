@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as C from "./App.styles";
 import logoImg from "./assets/devmemory_logo.png";
+import logoDarkImg from "./assets/devmemory_logo_dark.png";
 import RestartIcon from "./svgs/restart.svg";
 import { Button } from "./components/Button";
 import { InfoItem } from "./components/InfoItem";
@@ -8,9 +9,13 @@ import { GridType } from "./types/GridItemType";
 import { items } from "./data/items";
 import { GridItem } from "./components/GridItem";
 import { formatTimeElapse } from "./helpers/formatTimeElapse";
+import Switch from "react-switch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
 export function App() {
   const [playing, setPlaying] = useState<boolean>(false);
+  const [isDark, setIsDark] = useState<boolean>(false);
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [moveCount, setMoveCount] = useState<number>(0);
   const [shownCount, setShownCount] = useState<number>(0);
@@ -122,33 +127,80 @@ export function App() {
   }, [moveCount, gridItems]);
 
   return (
-    <C.Container>
-      <C.Info>
-        <C.LogoLink>
-          <img src={logoImg} width="200" alt="" />
-        </C.LogoLink>
-
-        <C.InfoArea>
-          <InfoItem label="Tempo" value={formatTimeElapse(timeElapsed)} />
-          <InfoItem label="Movimentos" value={moveCount.toString()} />
-        </C.InfoArea>
-        <Button
-          label="Reiniciar"
-          icon={RestartIcon}
-          onClick={resetAndCreateGrid}
-        />
-      </C.Info>
-      <C.GridArea>
-        <C.Grid>
-          {gridItems.map((item, index) => (
-            <GridItem
-              key={index}
-              item={item}
-              onClick={() => handleItemClick(index)}
+    <C.Container isDark={isDark}>
+      <C.MainContent>
+        <C.SwitchArea>
+          {isDark ? (
+            <FontAwesomeIcon
+              icon={faMoon}
+              size={"lg"}
+              style={{ marginRight: 10 }}
+              color="#DDD"
             />
-          ))}
-        </C.Grid>
-      </C.GridArea>
+          ) : (
+            <FontAwesomeIcon
+              icon={faSun}
+              size={"lg"}
+              style={{ marginRight: 10 }}
+              color="#222"
+            />
+          )}
+
+          <Switch
+            onChange={() => setIsDark(!isDark)}
+            checked={isDark}
+            onColor="#DDD"
+            onHandleColor="#2693e6"
+            handleDiameter={30}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={20}
+            width={48}
+          />
+        </C.SwitchArea>
+        <C.Info>
+          {isDark ? (
+            <C.LogoLink>
+              <img src={logoDarkImg} width="200" alt="" />
+            </C.LogoLink>
+          ) : (
+            <C.LogoLink>
+              <img src={logoImg} width="200" alt="" />
+            </C.LogoLink>
+          )}
+
+          <C.InfoArea>
+            <InfoItem
+              label="Tempo"
+              value={formatTimeElapse(timeElapsed)}
+              isDark={isDark}
+            />
+            <InfoItem
+              label="Movimentos"
+              value={moveCount.toString()}
+              isDark={isDark}
+            />
+          </C.InfoArea>
+          <Button
+            label="Reiniciar"
+            icon={RestartIcon}
+            onClick={resetAndCreateGrid}
+          />
+        </C.Info>
+        <C.GridArea>
+          <C.Grid>
+            {gridItems.map((item, index) => (
+              <GridItem
+                key={index}
+                item={item}
+                onClick={() => handleItemClick(index)}
+              />
+            ))}
+          </C.Grid>
+        </C.GridArea>
+      </C.MainContent>
     </C.Container>
   );
 }
