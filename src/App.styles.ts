@@ -1,13 +1,10 @@
 import styled from "styled-components";
+import { ColorType } from "./types/ThemeType";
 
-type themeProp = {
-  isDark: boolean;
-};
-
-export const Container = styled.div<themeProp>`
+export const Container = styled.div<ColorType>`
   width: 100vw;
   height: 100vh;
-  background-color: ${(props) => (props.isDark ? "#242526" : "#fff")};
+  background-color: ${(props) => props.theme.primary};
 `;
 export const MainContent = styled.div`
   width: 100%;
@@ -57,6 +54,24 @@ export const InfoArea = styled.div`
     text-align: center;
   }
 `;
+export const GameSettingsArea = styled.div`
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+
+  @media (max-width: 750px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+`;
+export const DifficultyArea = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 export const GridArea = styled.div`
   display: flex;
@@ -70,7 +85,7 @@ export const GridArea = styled.div`
 `;
 
 export const Grid = styled.div`
-  width: 430px;
+  width: 450px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;

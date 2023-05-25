@@ -1,20 +1,17 @@
 import styled from "styled-components";
-
-type themeProp = {
-  isDark: boolean;
-};
+import { themeType } from "../../reducers/themeReducer";
 
 export const Container = styled.div`
   margin: 20px 0;
 `;
 
-export const Label = styled.div<themeProp>`
+export const Label = styled.div<themeType>`
   font-size: 15px;
-  color: ${(props) => (props.isDark ? "#ccc" : "#6a7d8b;")};
+  color: ${(props) => props.theme.secondary};
 `;
 
-export const Value = styled.div<themeProp>`
+export const Value = styled.div<themeType>`
   font-size: 37px;
   font-weight: bold;
-  color: ${(props) => (props.isDark ? "#fff" : "#101c40;")};
+  color: ${(props) => props.theme.secondary}};
 `;

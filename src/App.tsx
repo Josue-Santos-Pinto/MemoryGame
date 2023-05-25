@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import * as C from "./App.styles";
 import logoImg from "./assets/devmemory_logo.png";
 import logoDarkImg from "./assets/devmemory_logo_dark.png";
@@ -6,20 +6,33 @@ import RestartIcon from "./svgs/restart.svg";
 import { Button } from "./components/Button";
 import { InfoItem } from "./components/InfoItem";
 import { GridType } from "./types/GridItemType";
-import { items } from "./data/items";
+import { easyItems, hardItems, mediumItems } from "./data/items";
 import { GridItem } from "./components/GridItem";
 import { formatTimeElapse } from "./helpers/formatTimeElapse";
 import Switch from "react-switch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { GameSettings } from "./components/GameSettings";
+import { Context } from "./contexts/Context";
+import * as themes from "./themes";
 
 export function App() {
   const [playing, setPlaying] = useState<boolean>(false);
-  const [isDark, setIsDark] = useState<boolean>(false);
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [moveCount, setMoveCount] = useState<number>(0);
   const [shownCount, setShownCount] = useState<number>(0);
   const [gridItems, setGridItems] = useState<GridType[]>([]);
+  const [items, setItems] = useState(mediumItems);
+
+  const [currentDifficulty, setCurrentDifficulty] = useState(1);
+
+  const { state, dispatch } = useContext(Context);
+
+  const difficulties = [
+    { id: 1, name: "Facil" },
+    { id: 2, name: "Medio" },
+    { id: 3, name: "Dificil" },
+  ];
 
   const resetAndCreateGrid = () => {
     // RESETAR
@@ -70,6 +83,20 @@ export function App() {
         setShownCount(shownCount + 1);
       }
       setGridItems(tmpGrid);
+    }
+  };
+
+  const handleSwitchTheme = () => {
+    if (state.theme.theme === themes.light) {
+      dispatch({
+        type: "SWITCH_THEME",
+        payload: { theme: themes.dark },
+      });
+    } else {
+      dispatch({
+        type: "SWITCH_THEME",
+        payload: { theme: themes.light },
+      });
     }
   };
 
@@ -126,11 +153,27 @@ export function App() {
     }
   }, [moveCount, gridItems]);
 
+  useEffect(() => {
+    switch (currentDifficulty) {
+      case 1:
+        setItems(easyItems);
+        break;
+      case 2:
+        setItems(mediumItems);
+        break;
+      case 3:
+        setItems(hardItems);
+        break;
+    }
+  }, [currentDifficulty]);
+
+  console.log(state.theme.theme);
+
   return (
-    <C.Container isDark={isDark}>
+    <C.Container theme={state.theme.theme}>
       <C.MainContent>
         <C.SwitchArea>
-          {isDark ? (
+          {state.theme.theme === themes.dark ? (
             <FontAwesomeIcon
               icon={faMoon}
               size={"lg"}
@@ -147,8 +190,8 @@ export function App() {
           )}
 
           <Switch
-            onChange={() => setIsDark(!isDark)}
-            checked={isDark}
+            onChange={handleSwitchTheme}
+            checked={state.theme.theme === themes.dark}
             onColor="#DDD"
             onHandleColor="#2693e6"
             handleDiameter={30}
@@ -161,7 +204,7 @@ export function App() {
           />
         </C.SwitchArea>
         <C.Info>
-          {isDark ? (
+          {state.theme.theme === themes.dark ? (
             <C.LogoLink>
               <img src={logoDarkImg} width="200" alt="" />
             </C.LogoLink>
@@ -172,16 +215,28 @@ export function App() {
           )}
 
           <C.InfoArea>
-            <InfoItem
-              label="Tempo"
-              value={formatTimeElapse(timeElapsed)}
-              isDark={isDark}
-            />
-            <InfoItem
-              label="Movimentos"
-              value={moveCount.toString()}
-              isDark={isDark}
-            />
+            <InfoItem label="Tempo" value={formatTimeElapse(timeElapsed)} />
+            <InfoItem label="Movimentos" value={moveCount.toString()} />
+            <C.GameSettingsArea>
+              <div
+                style={{
+                  fontSize: 15,
+                  color: state.theme.theme.secondary,
+                }}
+              >
+                Dificuldade
+              </div>
+              <C.DifficultyArea>
+                {difficulties.map((item) => (
+                  <GameSettings
+                    key={item.id}
+                    onClick={() => setCurrentDifficulty(item.id)}
+                    data={item}
+                    active={item.id === currentDifficulty}
+                  />
+                ))}
+              </C.DifficultyArea>
+            </C.GameSettingsArea>
           </C.InfoArea>
           <Button
             label="Reiniciar"
