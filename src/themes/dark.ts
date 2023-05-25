@@ -1,5 +1,10 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  primary: "#242526",
-  secondary: "#fff",
+  bannerColors: {
+    primary: "#242526",
+  },
+  textColors: {
+    primary: "#fff",
+    secondary: "#ccc",
+  },
 };

@@ -1,6 +1,11 @@
-export type ColorType = {
+export type ThemeType = {
   theme: {
-    primary: string;
-    secondary: string;
+    bannerColors: {
+      primary: string;
+    };
+    textColors: {
+      primary: string;
+      secondary: string;
+    };
   };
 };

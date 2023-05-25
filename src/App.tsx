@@ -221,7 +221,7 @@ export function App() {
               <div
                 style={{
                   fontSize: 15,
-                  color: state.theme.theme.secondary,
+                  color: state.theme.theme.textColors.secondary,
                 }}
               >
                 Dificuldade

@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { ColorType } from "./types/ThemeType";
+import { ThemeType } from "./types/ThemeType";
 
-export const Container = styled.div<ColorType>`
+export const Container = styled.div<ThemeType>`
   width: 100vw;
   height: 100vh;
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.theme.bannerColors.primary};
 `;
 export const MainContent = styled.div`
   width: 100%;

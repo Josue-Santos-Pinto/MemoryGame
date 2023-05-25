@@ -1,13 +1,10 @@
 import { createContext, useReducer } from "react";
-import {
-  themeInitialState,
-  themeType,
-  themeReducer,
-} from "../reducers/themeReducer";
+import { themeInitialState, themeReducer } from "../reducers/themeReducer";
 import { reducerActionType } from "../types/ReducerActionsType";
+import { ThemeType } from "../types/ThemeType";
 
 type initialStateType = {
-  theme: themeType;
+  theme: ThemeType;
 };
 type ContextType = {
   state: initialStateType;

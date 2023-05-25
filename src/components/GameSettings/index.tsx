@@ -1,3 +1,5 @@
+import { Context } from "../../contexts/Context";
+import { useContext } from "react";
 import * as C from "./styles";
 
 type DataType = {
@@ -12,9 +14,12 @@ type GameSettingsProps = {
 };
 
 export function GameSettings({ data, active, onClick }: GameSettingsProps) {
+  const { state, dispatch } = useContext(Context);
   return (
-    <C.Container onClick={onClick} active={active}>
-      <C.Label active={active}>{data?.name}</C.Label>
+    <C.Container theme={state.theme.theme} onClick={onClick} active={active}>
+      <C.Label theme={state.theme.theme} active={active}>
+        {data?.name}
+      </C.Label>
     </C.Container>
   );
 }
