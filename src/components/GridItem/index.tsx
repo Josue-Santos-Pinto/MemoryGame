@@ -1,7 +1,7 @@
 import { GridType } from "../../types/GridItemType";
 import * as C from "./styles";
 import b7SVG from "../../svgs/b7.svg";
-import { easyItems, mediumItems } from "../../data/items";
+import { easyItems, hardItems } from "../../data/items";
 
 type GridProps = {
   item: GridType;
@@ -18,7 +18,7 @@ export function GridItem({ item, onClick }: GridProps) {
         <C.Icon src={b7SVG} alt="" opacity={0.1} />
       )}
       {(item.permanentShown || item.shown) && item.item !== null && (
-        <C.Icon src={mediumItems[item.item].icon} alt="" />
+        <C.Icon src={hardItems[item.item].icon} alt="" />
       )}
     </C.Container>
   );

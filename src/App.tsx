@@ -102,7 +102,7 @@ export function App() {
 
   useEffect(() => {
     resetAndCreateGrid();
-  }, []);
+  }, [items]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -167,7 +167,7 @@ export function App() {
     }
   }, [currentDifficulty]);
 
-  console.log(state.theme.theme);
+  console.log(items);
 
   return (
     <C.Container theme={state.theme.theme}>

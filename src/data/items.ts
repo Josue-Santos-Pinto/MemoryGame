@@ -6,6 +6,10 @@ import gasolinaSVG from "../svgs/gasolina.svg";
 import motoSVG from "../svgs/moto.svg";
 import luaSVG from "../svgs/lua.svg";
 import solSVG from "../svgs/sol.svg";
+import nuvemSVG from "../svgs/nuvem.svg";
+import mundoSVG from "../svgs/mundo.svg";
+import balaoSVG from "../svgs/balao.svg";
+import aviaoSVG from "../svgs/aviao.svg";
 
 export const easyItems = [
   { name: "android", icon: androidSVG },
@@ -25,6 +29,7 @@ export const mediumItems = [
   { name: "moto", icon: motoSVG },
   { name: "lua", icon: luaSVG },
   { name: "sol", icon: solSVG },
+  { name: "nuvem", icon: nuvemSVG },
 ];
 
 export const hardItems = [
@@ -34,4 +39,10 @@ export const hardItems = [
   { name: "estrela", icon: estrelaSVG },
   { name: "gasolina", icon: gasolinaSVG },
   { name: "moto", icon: motoSVG },
+  { name: "lua", icon: luaSVG },
+  { name: "sol", icon: solSVG },
+  { name: "nuvem", icon: nuvemSVG },
+  { name: "mundo", icon: mundoSVG },
+  { name: "balao", icon: balaoSVG },
+  { name: "aviao", icon: aviaoSVG },
 ];
