@@ -53,6 +53,14 @@ export const InfoArea = styled.div`
     justify-content: space-around;
     text-align: center;
   }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+  }
 `;
 export const GameSettingsArea = styled.div`
   width: 100%;
